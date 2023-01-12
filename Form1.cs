@@ -37,7 +37,46 @@ namespace dz2
                     return;
                 }
             }
-            MessageBox.Show("Svi regexi su dobri");
+            int x1, x2, y1, y2, r;
+            //svi su ok napisani, idemo ih sada kroz for petlju sve nacrtati
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string[] parameters = lines[i].Split('(');
+                string objectName = parameters[0];
+                if (objectName == "Krug")
+                {
+                    //dohvati 3 broja
+                    /*
+                    parametri[1] = parametri[1].TrimEnd(' ');
+                    parametri[1] = parametri[1].TrimEnd(')');
+                    string[] nums = parametri[1].Split(',');
+                    x1 = Int32.Parse(nums[0]);
+                    y1 = Int32.Parse(nums[1]);
+                    r = Int32.Parse(nums[2]);*/
+
+                }
+                else if (objectName == "Crta")
+                {
+                    //dohvati 4 broja
+
+                    parameters[1] = parameters[1].TrimEnd(' ');
+                    parameters[1] = parameters[1].TrimEnd(')');
+                    string[] nums = parameters[1].Split(',');
+                    x1 = Int32.Parse(nums[0]);
+                    y1 = Int32.Parse(nums[1]);
+                    x2 = Int32.Parse(nums[2]);
+                    y2 = Int32.Parse(nums[3]);
+                    //crtanje
+                    
+                    var g = panel1.CreateGraphics();
+                    var p = new Pen(Color.Black, 3);
+                    var point1 = new Point(x1, y1);
+                    var point2 = new Point(x2, y2);
+                    g.DrawLine(p, point1, point2);
+                    
+                }
+
+            }
         }
         private void Change_View(object sender, EventArgs e)
         {
