@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+
 namespace dz2
 {
     public partial class Form1 : Form
@@ -16,7 +18,27 @@ namespace dz2
         {
 
         }
-
+        private void HandleNewCodeAndDrawObject(object sender, EventArgs e)
+        {
+            string code = richTextBox1.Text;
+            string[] lines = code.Split('\n');
+            //provjeri kroz regexe
+            string reg_krug = "^Krug\\\\((\\\\d+),(\\\\d+),(\\\\d+)\\\\)$\r\n";
+            string reg_crta = "^Crta\\((\\d+),(\\d+),(\\d+),(\\d+)\\)$";
+            for (int i = 0; i < lines.Length; i++)
+            {
+                if (lines[i] == "\n" || String.IsNullOrEmpty(lines[i]))
+                {
+                    continue;
+                }
+                if (!Regex.IsMatch(lines[i], reg_krug) && !Regex.IsMatch(lines[i], reg_crta))
+                {
+                    //ovaj regex nije dobar, dakle nista ne radimo
+                    return;
+                }
+            }
+            MessageBox.Show("Svi regexi su dobri");
+        }
         private void Change_View(object sender, EventArgs e)
         {
             string odabir = toolStripComboBox1.SelectedItem.ToString();

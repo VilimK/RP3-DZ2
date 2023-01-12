@@ -133,6 +133,7 @@
             this.richTextBox1.Size = new System.Drawing.Size(369, 615);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
+            this.richTextBox1.Leave += new System.EventHandler(this.HandleNewCodeAndDrawObject);
             // 
             // panel1
             // 
