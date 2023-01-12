@@ -23,7 +23,7 @@ namespace dz2
             string code = richTextBox1.Text;
             string[] lines = code.Split('\n');
             //provjeri kroz regexe
-            string reg_krug = "^Krug\\\\((\\\\d+),(\\\\d+),(\\\\d+)\\\\)$\r\n";
+            string reg_krug = "^Krug\\((\\d+),(\\d+),(\\d+)\\)$";
             string reg_crta = "^Crta\\((\\d+),(\\d+),(\\d+),(\\d+)\\)$";
             for (int i = 0; i < lines.Length; i++)
             {
@@ -46,14 +46,17 @@ namespace dz2
                 if (objectName == "Krug")
                 {
                     //dohvati 3 broja
-                    /*
-                    parametri[1] = parametri[1].TrimEnd(' ');
-                    parametri[1] = parametri[1].TrimEnd(')');
-                    string[] nums = parametri[1].Split(',');
+
+                    parameters[1] = parameters[1].TrimEnd(' ');
+                    parameters[1] = parameters[1].TrimEnd(')');
+                    string[] nums = parameters[1].Split(',');
                     x1 = Int32.Parse(nums[0]);
                     y1 = Int32.Parse(nums[1]);
-                    r = Int32.Parse(nums[2]);*/
-
+                    r = Int32.Parse(nums[2]);
+                    var point = new Point(x1, y1);
+                    var g = panel1.CreateGraphics();
+                    var p = new Pen(Color.Black, 2);
+                    //g.DrawEllipse(p,r, point); 
                 }
                 else if (objectName == "Crta")
                 {
@@ -69,7 +72,7 @@ namespace dz2
                     //crtanje
                     
                     var g = panel1.CreateGraphics();
-                    var p = new Pen(Color.Black, 3);
+                    var p = new Pen(Color.Black, 2);
                     var point1 = new Point(x1, y1);
                     var point2 = new Point(x2, y2);
                     g.DrawLine(p, point1, point2);
