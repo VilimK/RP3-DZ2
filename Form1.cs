@@ -5,13 +5,15 @@ namespace dz2
 {
     public partial class Form1 : Form
     {
-        public class Settings 
+        public static class Information 
         {
-            public bool crta = true;
-            public bool first_click = true;
-            public Tuple<int, int> FstClickCoordinates;
-            public Tuple<int, int> SndClickCoordinates;
-            public string[] lines; 
+            public static bool crta = true; //true = crta, false = krug
+            public static bool first_click = true; //true = prvi klik, false = drugi klik
+            public static int FstClickCoordinateX;
+            public static int FstClickCoordinateY;
+            public static int SndClickCoordinateX;
+            public static int SndClickCoordinateY;
+            public static string[] lines; 
         };
         public Form1()
         {
@@ -166,11 +168,41 @@ namespace dz2
         private void ClickForVisualDraw(object sender, MouseEventArgs e)
         {
             //MessageBox.Show("U funckiji clickforvisualdraw!");
-            if (true)
+            if (Form1.Information.first_click)
             {
+                //crta sluèaj
                 Point point = panel1.PointToClient(Cursor.Position);
-                MessageBox.Show(point.ToString());
+                Form1.Information.FstClickCoordinateX = point.X;
+                Form1.Information.FstClickCoordinateY = point.Y;
             }
+            else 
+            {
+                //krug sluèaj, u ovoj grani obavljamo crtanje
+                //spremi informacije
+                Point point = panel1.PointToClient(Cursor.Position);
+                Form1.Information.SndClickCoordinateX= point.X;
+                Form1.Information.SndClickCoordinateY = point.Y;
+                int x1, y1, x2, y2;
+                x1 = Form1.Information.FstClickCoordinateX;
+                y1 = Form1.Information.FstClickCoordinateY;
+                x2 = Form1.Information.SndClickCoordinateX;
+                y2 = Form1.Information.SndClickCoordinateY;
+                //pogledaj je li krug ili crta
+                if (Form1.Information.crta)
+                {
+                    MessageBox.Show("x1,y1,x2,y2 = " + x1 +" " + y1 + " " + x2 +" "+ y2);
+                    DrawLine(x1, y1, x2, y2);
+                }
+                else
+                {
+                    //izracunaj radius kao udaljenost izmedu dvije tocke, a srediste je x1,y1 => euklidska metrika
+                    double r_double = (x2 - x1) * (x2 - x1) - (y2 - y1) * (y2 - y1);
+                    r_double = Math.Sqrt(r_double);
+                    int r = Convert.ToInt32(r_double); 
+                    DrawCircle(x1,y1,r);
+                }
+            }
+            Form1.Information.first_click = !(Form1.Information.first_click);
         }
     }
 }
