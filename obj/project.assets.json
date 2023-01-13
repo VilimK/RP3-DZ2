@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Vilim\\Desktop\\backup dz\\RP3-DZ2-main\\dz2.csproj",
+      "projectUniqueName": "C:\\Users\\Vilim\\Desktop\\rp3 vjezbanje\\dz2\\crtanje 2\\dz2\\dz2.csproj",
       "projectName": "dz2",
-      "projectPath": "C:\\Users\\Vilim\\Desktop\\backup dz\\RP3-DZ2-main\\dz2.csproj",
+      "projectPath": "C:\\Users\\Vilim\\Desktop\\rp3 vjezbanje\\dz2\\crtanje 2\\dz2\\dz2.csproj",
       "packagesPath": "C:\\Users\\Vilim\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Vilim\\Desktop\\backup dz\\RP3-DZ2-main\\obj\\",
+      "outputPath": "C:\\Users\\Vilim\\Desktop\\rp3 vjezbanje\\dz2\\crtanje 2\\dz2\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
