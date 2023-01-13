@@ -27,7 +27,11 @@ namespace dz2
 
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-
+            Form1.Information.crta = false; 
+        }
+        private void Crta_Click(object sender, EventArgs e)
+        {
+            Form1.Information.crta = true;
         }
 
         void DrawCircle(int x,int y,int r)
@@ -129,7 +133,8 @@ namespace dz2
                         return;
                     }
                 }
-                DrawAllCodes(lines);
+                Form1.Information.lines = lines; 
+                DrawAllCodes(Form1.Information.lines);
             }
             else if (odabir == "Kod")
             {
@@ -161,7 +166,8 @@ namespace dz2
                         return;
                     }
                 }
-                DrawAllCodes(lines);
+                Form1.Information.lines = lines; 
+                DrawAllCodes(Form1.Information.lines);
             }
         }
 
@@ -190,19 +196,22 @@ namespace dz2
                 //pogledaj je li krug ili crta
                 if (Form1.Information.crta)
                 {
-                    MessageBox.Show("x1,y1,x2,y2 = " + x1 +" " + y1 + " " + x2 +" "+ y2);
                     DrawLine(x1, y1, x2, y2);
+                    //updajetaj info o linijama dodavajuci kod novonacrtalog objekta, zatim updejtaj kod koji se prikazuje
                 }
                 else
                 {
                     //izracunaj radius kao udaljenost izmedu dvije tocke, a srediste je x1,y1 => euklidska metrika
-                    double r_double = (x2 - x1) * (x2 - x1) - (y2 - y1) * (y2 - y1);
+                    double r_double = (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1);
                     r_double = Math.Sqrt(r_double);
-                    int r = Convert.ToInt32(r_double); 
+                    int r = Convert.ToInt32(r_double);
+                    //MessageBox.Show("x1,y1,x2,y2,r,r_double = " + " " + x1 + " " + y1 + " " + x2 + " " + y2 +" "+ r +" "+ r_double);
                     DrawCircle(x1,y1,r);
+                    //updatecode
                 }
             }
             Form1.Information.first_click = !(Form1.Information.first_click);
         }
+
     }
 }
