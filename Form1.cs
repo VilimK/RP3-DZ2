@@ -5,6 +5,14 @@ namespace dz2
 {
     public partial class Form1 : Form
     {
+        public class Settings 
+        {
+            public bool crta = true;
+            public bool first_click = true;
+            public Tuple<int, int> FstClickCoordinates;
+            public Tuple<int, int> SndClickCoordinates;
+            public string[] lines; 
+        };
         public Form1()
         {
             InitializeComponent();
@@ -19,6 +27,7 @@ namespace dz2
         {
 
         }
+
         void DrawCircle(int x,int y,int r)
         {
             var g = panel1.CreateGraphics();
@@ -101,6 +110,24 @@ namespace dz2
                 splitContainer1.Panel1.Show();
                 splitContainer1.Panel2Collapsed = false;
                 splitContainer1.Panel2.Show();
+                string code = richTextBox1.Text;
+                string[] lines = code.Split('\n');
+                //provjeri kroz regexe
+                string reg_krug = "^Krug\\((\\d+),(\\d+),(\\d+)\\)$";
+                string reg_crta = "^Crta\\((\\d+),(\\d+),(\\d+),(\\d+)\\)$";
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    if (lines[i] == "\n" || String.IsNullOrEmpty(lines[i]))
+                    {
+                        continue;
+                    }
+                    if (!Regex.IsMatch(lines[i], reg_krug) && !Regex.IsMatch(lines[i], reg_crta))
+                    {
+                        //ovaj regex nije dobar, dakle nista ne radimo
+                        return;
+                    }
+                }
+                DrawAllCodes(lines);
             }
             else if (odabir == "Kod")
             {
@@ -132,6 +159,17 @@ namespace dz2
                         return;
                     }
                 }
+                DrawAllCodes(lines);
+            }
+        }
+
+        private void ClickForVisualDraw(object sender, MouseEventArgs e)
+        {
+            //MessageBox.Show("U funckiji clickforvisualdraw!");
+            if (true)
+            {
+                Point point = panel1.PointToClient(Cursor.Position);
+                MessageBox.Show(point.ToString());
             }
         }
     }
