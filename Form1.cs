@@ -194,24 +194,25 @@ namespace dz2
             new_line += ",";
             new_line += y2.ToString();
             new_line += ")\n";
-            //povecaj lines i dodaj new_line na kraj 
-            /*
-            Array.Resize(ref Form1.Information.lines, Form1.Information.lines.Length + 1);
-            Form1.Information.lines[Form1.Information.lines.Length - 1] = new_line;*/
-            /*
-            List<string> list = new List<string>();
-            list.Add("Hi");
-            String[] str = list.ToArray();
-            */
-            /*List<string> list = new List<string>(Form1.Information.lines);
-            list.Add(new_line);
-            Form1.Information.lines = list.ToArray(); */
-            //ispisi lines u textboxu za kod
-            //Unpack lines in one string
             Form1.Information.lines.Add(new_line); 
             string one_line = UnpackLinesInString(Form1.Information.lines); 
             richTextBox1.Text = one_line;
         }
+
+        void UpdateCodeAfterVisualDrawKrug(int r, int x,int y)
+        {
+            string new_line = "Krug(";
+            new_line += r.ToString();
+            new_line += ",";
+            new_line += x.ToString();
+            new_line += ",";
+            new_line += y.ToString();
+            new_line += ")\n";
+            Form1.Information.lines.Add(new_line);
+            string one_line = UnpackLinesInString(Form1.Information.lines);
+            richTextBox1.Text = one_line;
+        }
+
         private void ClickForVisualDraw(object sender, MouseEventArgs e)
         {
             //MessageBox.Show("U funckiji clickforvisualdraw!");
@@ -247,7 +248,7 @@ namespace dz2
                     r_double = Math.Sqrt(r_double);
                     int r = Convert.ToInt32(r_double);
                     DrawCircle(x1,y1,r);
-                    //updatecode
+                    UpdateCodeAfterVisualDrawKrug(r,x1,y1); 
                 }
             }
             Form1.Information.first_click = !(Form1.Information.first_click);
