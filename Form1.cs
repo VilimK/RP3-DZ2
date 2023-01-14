@@ -60,7 +60,9 @@ namespace dz2
                     parameters[1] = parameters[1].TrimEnd(' ');
                     parameters[1] = parameters[1].TrimEnd(')');
                     string[] nums = parameters[1].Split(',');
+                    nums[2] = nums[2].TrimEnd(')');
                     //raspakiraj
+
                     r = Int32.Parse(nums[0]);
                     x1 = Int32.Parse(nums[1]);
                     y1 = Int32.Parse(nums[2]);
@@ -73,6 +75,7 @@ namespace dz2
                     parameters[1] = parameters[1].TrimEnd(' ');
                     parameters[1] = parameters[1].TrimEnd(')');
                     string[] nums = parameters[1].Split(',');
+                    nums[3] = nums[3].TrimEnd(')');
                     x1 = Int32.Parse(nums[0]);
                     y1 = Int32.Parse(nums[1]);
                     x2 = Int32.Parse(nums[2]);
