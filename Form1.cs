@@ -13,7 +13,7 @@ namespace dz2
             public static int FstClickCoordinateY;
             public static int SndClickCoordinateX;
             public static int SndClickCoordinateY;
-            public static string[] lines; 
+            public static List<string> lines = new List<string>(); 
         };
         public Form1()
         {
@@ -40,10 +40,10 @@ namespace dz2
             var p = new Pen(Color.Black, 2);
             g.DrawEllipse(p, x - r, y - r, r + r, r + r);
         }
-        void DrawAllCodes(string[] lines)
+        void DrawAllCodes(List <string> lines)
         {
             int x1, x2, y1, y2, r;
-            for (int i = 0; i < lines.Length; i++)
+            for (int i = 0; i < lines.Count; i++)
             {
                 string[] parameters = lines[i].Split('(');
                 string objectName = parameters[0];
@@ -87,11 +87,11 @@ namespace dz2
         private void HandleNewCodeAndDrawObject(object sender, EventArgs e)
         {
             string code = richTextBox1.Text;
-            string[] lines = code.Split('\n');
+            List<string> lines = new List<string>(code.Split('\n'));
             //provjeri kroz regexe
             string reg_krug = "^Krug\\((\\d+),(\\d+),(\\d+)\\)$";
             string reg_crta = "^Crta\\((\\d+),(\\d+),(\\d+),(\\d+)\\)$";
-            for (int i = 0; i < lines.Length; i++)
+            for (int i = 0; i < lines.Count; i++)
             {
                 if (lines[i] == "\n" || String.IsNullOrEmpty(lines[i]))
                 {
@@ -117,11 +117,11 @@ namespace dz2
                 splitContainer1.Panel2Collapsed = false;
                 splitContainer1.Panel2.Show();
                 string code = richTextBox1.Text;
-                string[] lines = code.Split('\n');
+                List<string> lines = new List<string>(code.Split('\n'));
                 //provjeri kroz regexe
                 string reg_krug = "^Krug\\((\\d+),(\\d+),(\\d+)\\)$";
                 string reg_crta = "^Crta\\((\\d+),(\\d+),(\\d+),(\\d+)\\)$";
-                for (int i = 0; i < lines.Length; i++)
+                for (int i = 0; i < lines.Count; i++)
                 {
                     if (lines[i] == "\n" || String.IsNullOrEmpty(lines[i]))
                     {
@@ -150,11 +150,11 @@ namespace dz2
                 splitContainer1.Panel2Collapsed = false;
                 splitContainer1.Panel2.Show();
                 string code = richTextBox1.Text;
-                string[] lines = code.Split('\n');
+                List<string> lines = new List<string>(code.Split('\n'));
                 //provjeri kroz regexe
                 string reg_krug = "^Krug\\((\\d+),(\\d+),(\\d+)\\)$";
                 string reg_crta = "^Crta\\((\\d+),(\\d+),(\\d+),(\\d+)\\)$";
-                for (int i = 0; i < lines.Length; i++)
+                for (int i = 0; i < lines.Count; i++)
                 {
                     if (lines[i] == "\n" || String.IsNullOrEmpty(lines[i]))
                     {
@@ -170,7 +170,48 @@ namespace dz2
                 DrawAllCodes(Form1.Information.lines);
             }
         }
-
+        string UnpackLinesInString(List<string> lines)
+        {
+            string line = ""; 
+            for(int i = 0; i < lines.Count; i++)
+            {
+                //radi sigurnosti, da se ne pojave dvije linije u jednoj ili nepotrebne prazne linije 
+                lines[i] = lines[i].TrimEnd('\n');
+                lines[i] += '\n';
+                line += lines[i]; 
+            }
+            return line; 
+        }
+        void UpdateCodeAfterVisualDrawCrta(int x1, int y1, int x2, int y2)
+        {
+            //slozi string
+            string new_line = "Crta(";
+            new_line += x1.ToString();
+            new_line += ",";
+            new_line += y1.ToString();
+            new_line += ",";
+            new_line += x2.ToString();
+            new_line += ",";
+            new_line += y2.ToString();
+            new_line += ")\n";
+            //povecaj lines i dodaj new_line na kraj 
+            /*
+            Array.Resize(ref Form1.Information.lines, Form1.Information.lines.Length + 1);
+            Form1.Information.lines[Form1.Information.lines.Length - 1] = new_line;*/
+            /*
+            List<string> list = new List<string>();
+            list.Add("Hi");
+            String[] str = list.ToArray();
+            */
+            /*List<string> list = new List<string>(Form1.Information.lines);
+            list.Add(new_line);
+            Form1.Information.lines = list.ToArray(); */
+            //ispisi lines u textboxu za kod
+            //Unpack lines in one string
+            Form1.Information.lines.Add(new_line); 
+            string one_line = UnpackLinesInString(Form1.Information.lines); 
+            richTextBox1.Text = one_line;
+        }
         private void ClickForVisualDraw(object sender, MouseEventArgs e)
         {
             //MessageBox.Show("U funckiji clickforvisualdraw!");
@@ -197,7 +238,7 @@ namespace dz2
                 if (Form1.Information.crta)
                 {
                     DrawLine(x1, y1, x2, y2);
-                    //updajetaj info o linijama dodavajuci kod novonacrtalog objekta, zatim updejtaj kod koji se prikazuje
+                    UpdateCodeAfterVisualDrawCrta(x1, y1, x2, y2);
                 }
                 else
                 {
@@ -205,7 +246,6 @@ namespace dz2
                     double r_double = (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1);
                     r_double = Math.Sqrt(r_double);
                     int r = Convert.ToInt32(r_double);
-                    //MessageBox.Show("x1,y1,x2,y2,r,r_double = " + " " + x1 + " " + y1 + " " + x2 + " " + y2 +" "+ r +" "+ r_double);
                     DrawCircle(x1,y1,r);
                     //updatecode
                 }
