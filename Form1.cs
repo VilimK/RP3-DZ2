@@ -33,7 +33,11 @@ namespace dz2
         {
             Form1.Information.crta = true;
         }
-
+        void DeleteAllDrawings()
+        {
+            var g = panel1.CreateGraphics();
+            g.Clear(panel1.BackColor);
+        }
         void DrawCircle(int x,int y,int r)
         {
             var g = panel1.CreateGraphics();
@@ -42,6 +46,8 @@ namespace dz2
         }
         void DrawAllCodes(List <string> lines)
         {
+            //prvo obrisi sve na drawing panelu
+            DeleteAllDrawings();
             int x1, x2, y1, y2, r;
             for (int i = 0; i < lines.Count; i++)
             {
