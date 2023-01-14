@@ -110,7 +110,8 @@ namespace dz2
                 }
             }
             //svi su ok napisani, idemo ih sada kroz for petlju sve nacrtati
-            DrawAllCodes(lines); 
+            Form1.Information.lines = lines;
+            DrawAllCodes(Form1.Information.lines); 
 
         }
         private void Change_View(object sender, EventArgs e)
@@ -260,5 +261,10 @@ namespace dz2
             Form1.Information.first_click = !(Form1.Information.first_click);
         }
 
+
+        private void Repaint(object sender, PaintEventArgs e)
+        {
+            DrawAllCodes(Form1.Information.lines);
+        }
     }
 }
