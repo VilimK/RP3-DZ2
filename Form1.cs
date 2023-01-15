@@ -47,6 +47,22 @@ namespace dz2
         void DrawAllCodes(List <string> lines)
         {
             //prvo obrisi sve na drawing panelu
+            string code = richTextBox1.Text;
+            string reg_krug = "^Krug\\((\\d+),(\\d+),(\\d+)\\)$";
+            string reg_crta = "^Crta\\((\\d+),(\\d+),(\\d+),(\\d+)\\)$";
+            for (int i = 0; i < lines.Count; i++)
+            {
+                if (lines[i] == "\n" || String.IsNullOrEmpty(lines[i]))
+                {
+                    continue;
+                }
+                if (!Regex.IsMatch(lines[i], reg_krug) && !Regex.IsMatch(lines[i], reg_crta))
+                {
+                    //ovaj regex nije dobar, dakle nista ne radimo
+                    return;
+                }
+            }
+            Form1.Information.lines = lines; 
             DeleteAllDrawings();
             int x1, x2, y1, y2, r;
             for (int i = 0; i < lines.Count; i++)
@@ -63,9 +79,9 @@ namespace dz2
                     nums[2] = nums[2].Trim(')');
                     //raspakiraj
 
-                    r = Int32.Parse(nums[0]);
-                    x1 = Int32.Parse(nums[1]);
-                    y1 = Int32.Parse(nums[2]);
+                    x1 = Int32.Parse(nums[0]);
+                    y1 = Int32.Parse(nums[1]);
+                    r = Int32.Parse(nums[2]);
                     //crtaj krug
                     DrawCircle(x1, y1, r);
                 }
