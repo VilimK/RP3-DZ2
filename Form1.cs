@@ -38,7 +38,7 @@ namespace dz2
             var g = panel1.CreateGraphics();
             g.Clear(panel1.BackColor);
         }
-        void DrawCircle(int x,int y,int r)
+        void DrawCircle(int r,int x,int y)
         {
             var g = panel1.CreateGraphics();
             var p = new Pen(Color.Black, 2);
@@ -83,7 +83,7 @@ namespace dz2
                     y1 = Int32.Parse(nums[1]);
                     r = Int32.Parse(nums[2]);
                     //crtaj krug
-                    DrawCircle(x1, y1, r);
+                    DrawCircle(r, x1, y1);
                 }
                 else if (objectName == "Crta")
                 {
@@ -221,23 +221,25 @@ namespace dz2
             new_line += x2.ToString();
             new_line += ",";
             new_line += y2.ToString();
-            new_line += ")\n";
+            new_line += ")";
             Form1.Information.lines.Add(new_line); 
-            string one_line = UnpackLinesInString(Form1.Information.lines); 
+            string one_line = UnpackLinesInString(Form1.Information.lines);
+            one_line = one_line.Replace("\n\n", "\n");
             richTextBox1.Text = one_line;
         }
 
         void UpdateCodeAfterVisualDrawKrug(int r, int x,int y)
         {
             string new_line = "Krug(";
-            new_line += r.ToString();
-            new_line += ",";
             new_line += x.ToString();
             new_line += ",";
             new_line += y.ToString();
-            new_line += ")\n";
+            new_line += ",";
+            new_line += r.ToString();
+            new_line += ")";
             Form1.Information.lines.Add(new_line);
             string one_line = UnpackLinesInString(Form1.Information.lines);
+            one_line= one_line.Replace("\n\n", "\n");
             richTextBox1.Text = one_line;
         }
 
@@ -275,7 +277,7 @@ namespace dz2
                     double r_double = (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1);
                     r_double = Math.Sqrt(r_double);
                     int r = Convert.ToInt32(r_double);
-                    DrawCircle(x1,y1,r);
+                    DrawCircle(r, x1, y1);
                     UpdateCodeAfterVisualDrawKrug(r,x1,y1); 
                 }
             }
