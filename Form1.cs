@@ -1,15 +1,20 @@
 using System.Text.RegularExpressions;
 using System.Drawing;
+using System.Reflection.Metadata.Ecma335;
 
 namespace dz2
 {
     public partial class Form1 : Form
     {
-        public static class Information 
+        public static class Information
         {
             public static bool crta = true; //true = crta, false = krug
             public static bool first_click = true; //true = prvi klik, false = drugi klik
-            public static int FstClickCoordinateX;
+            public static int FstClickCoordinateX
+            {
+                get;
+                set; 
+            }
             public static int FstClickCoordinateY;
             public static int SndClickCoordinateX;
             public static int SndClickCoordinateY;
